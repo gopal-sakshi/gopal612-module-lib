@@ -1,0 +1,38 @@
+target. 
+- This defines the level of JavaScript support in the browsers you’re going to be serving your code in. 
+- If you have to deal with an older set of browsers 
+    that might not have all the latest and greatest features, you could set this to ES2015. 
+- TypeScript will even support ES3 if you really need maximum browser coverage.
+
+module
+- this isn’t which module system we’re going to author in, 
+    but which module system TypeScript’s compiler will use when it outputs the code.
+- we publish two versions:
+    A modern version with ES modules 
+        so that bundling tools can smartly tree–shake away code that isn’t used
+        a browser that supports ES modules can simply import the files
+    A version that uses CommonJS modules 
+        the require code you’ll be used to if you work in Node 
+        so older build tools & Node.js environments can easily run the code
+
+
+npx tsc -p tsconfig.json
+
+TypeScript won’t merge any files together when it compiles 
+- but will convert each individual module into its JavaScript equivalent.
+- in that process
+    it will remove type annotation
+    it will not export interface
+
+Before publishing the npmjs package
+- if we publish our types, too, 
+- then people writing their apps in TypeScript will get a nicer experience.
+- ask TypeScript to emit a declaration file alongside the code it writes. 
+    This file ends in .d.ts and will contain type information about our code. 
+    Think of it like source code except rather than containing types and the implementation, it only contains the types.
+- add "declaration": true           in our tsconfig.json
+
+Node doesn’t yet support ES modules out of the box. 
+It’d be great to publish a CommonJS version, too, so Node works with no extra effort. 
+ES module support is coming in Node 13 and beyond, but it’ll be a while before the ecosystem catches up.
+-----------------------------------------------------------------
